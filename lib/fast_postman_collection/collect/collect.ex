@@ -1,7 +1,6 @@
 defmodule FastPostmanCollection.Collect do
   alias FastPostmanCollection.{CollectDataItem, CollectDataModule}
 
-  @spec collect_documentation(router :: module() | nil) :: list(%CollectDataItem{})
   def generate_data_by_router(router \\ nil) do
     router = Application.get_env(:fast_postman_collection, :router) || router
 
@@ -9,23 +8,18 @@ defmodule FastPostmanCollection.Collect do
       raise FastPostmanCollection.Expectation.PhoenixRouterNotFound
     end
 
-    collect_documentation(apply(router, :__routes__, []))
+    collect_documentation(apply(router, :__routes__, []), router)
   end
 
-  @spec collect_documentation(maybe_improper_list()) :: list(%CollectDataItem{})
-  def collect_documentation(list) when is_list(list) do
+  def collect_documentation(list, router) when is_list(list) do
     list
     |> Enum.sort()
     |> Enum.uniq()
-    |> Enum.map(&handle_generate_data(&1))
+    |> Enum.map(&handle_generate_data(&1, router))
   end
 
-  defp handle_generate_data(%{plug: plug}) do
-    handle_generate_data(plug)
-  end
-
-  defp handle_generate_data(module) when is_atom(module) do
-    {_, _, _, _, doc, doc_params, functions} = Code.fetch_docs(module)
+  defp handle_generate_data(%{plug: plug, verb: verb, path: path} = item, router) do
+    {_, _, _, _, doc, doc_params, functions} = Code.fetch_docs(plug)
 
     functions_list =
       functions
@@ -33,15 +27,25 @@ defmodule FastPostmanCollection.Collect do
       |> Enum.map(fn {{_, function_name, _}, _, _, doc, doc_params} ->
         %CollectDataItem{
           name: function_name,
+          method: verb,
+          route: path,
+          pipe_through:
+            FastPostmanCollection.Helpers.RouterInfo.route_info(
+              router,
+              Atom.to_string(verb)
+              |> String.upcase(),
+              path,
+              "h"
+            )[:pipe_through],
           title: documentation_handler(doc) |> title(),
           documentation: documentation_handler(doc) |> documentation_body(),
-          doc_params: doc_params
+          doc_params: FastPostmanCollection.CollectDataItemParams.get_from_map(doc_params)
         }
       end)
 
     %CollectDataModule{
-      module: module,
-      doc_params: doc_params,
+      module: plug,
+      doc_params: FastPostmanCollection.CollectDataModuleParams.get_from_map(doc_params),
       title: documentation_handler(doc) |> title(),
       documentation: documentation_handler(doc) |> documentation_body(),
       functions: functions_list

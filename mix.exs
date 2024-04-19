@@ -26,6 +26,7 @@ defmodule FastPostmanCollection.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:jason, "~> 1.4.1"},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:phoenix, "~> 1.7.11", only: :test},
       {:phoenix_ecto, "~> 4.4", only: :test},
@@ -37,7 +38,6 @@ defmodule FastPostmanCollection.MixProject do
       {:telemetry_metrics, "~> 0.6", only: :test},
       {:telemetry_poller, "~> 1.0", only: :test},
       {:gettext, "~> 0.20", only: :test},
-      {:jason, "~> 1.2", only: :test},
       {:dns_cluster, "~> 0.1.1", only: :test},
       {:bandit, "~> 1.2", only: :test},
       {:hackney, "~> 1.9", only: :test}

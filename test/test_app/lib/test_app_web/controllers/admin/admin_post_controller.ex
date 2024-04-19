@@ -1,9 +1,9 @@
-defmodule TestAppWeb.UserController do
+defmodule TestAppWeb.AdminPostController do
   use TestAppWeb, :controller
-  @moduledoc filter: "test"
+  @moduledoc folder_path: "Admin folder/Админка"
 
   @moduledoc """
-  # Artem
+  # Post controller
   """
 
   @doc """

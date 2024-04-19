@@ -1,13 +1,12 @@
-defmodule TestAppWeb.UserController do
+defmodule TestAppWeb.PostController do
   use TestAppWeb, :controller
-  @moduledoc filter: "test"
 
   @moduledoc """
-  # Artem
+  # post router
   """
 
   @doc """
-  # asdad
+  # post router
   This route index
   """
   @doc params: %{}

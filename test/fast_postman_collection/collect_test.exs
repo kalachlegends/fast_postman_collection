@@ -1,4 +1,5 @@
 defmodule FastPostmanCollection.CollectTest do
+  alias FastPostmanCollection.CollectDataModuleParams
   use ExUnit.Case
 
   setup do
@@ -20,10 +21,20 @@ defmodule FastPostmanCollection.CollectTest do
 
     assert is_list(data)
     user_controller_item = Enum.find(data, fn x -> x.module == TestAppWeb.UserController end)
-    assert %{doc_params: %{test: "test"}, functions: functions} = user_controller_item
+
+    assert %{
+             doc_params: %CollectDataModuleParams{folder_path: nil, filter: "test"},
+             functions: functions
+           } = user_controller_item
+
     assert is_list(functions)
     functions_item = Enum.find(functions, fn x -> x.name == :index end)
     assert %{doc_params: %{params: %{}}, documentation: documentation} = functions_item
     assert documentation =~ "This route index"
+  end
+
+  test "FastPostmanCollection.get_from_map(map)" do
+    assert %FastPostmanCollection.CollectDataItemParams{mode: "raw"} =
+             FastPostmanCollection.CollectDataItemParams.get_from_map(%{mode: "raw"})
   end
 end

@@ -1,6 +1,6 @@
-defmodule TestAppWeb.UserController do
+defmodule TestAppWeb.AdminController do
   use TestAppWeb, :controller
-  @moduledoc filter: "test"
+  @moduledoc folder_path: "Admin folder/Админка"
 
   @moduledoc """
   # Artem
@@ -11,6 +11,7 @@ defmodule TestAppWeb.UserController do
   This route index
   """
   @doc params: %{}
+  @doc body: %{}
   def index(conn, params) do
     json(conn, params)
   end

@@ -5,11 +5,28 @@ defmodule TestAppWeb.Router do
     plug(:accepts, ["json"])
   end
 
+  pipeline :admin_auth do
+    plug(:accepts, ["json"])
+  end
+
+  pipeline :user_auth do
+    plug(:accepts, ["json"])
+  end
+
   scope "/api", TestAppWeb do
     pipe_through(:api)
 
     scope "/user" do
+      pipe_through(:user_auth)
       get("/", UserController, :index)
+    end
+
+    scope "/admin" do
+      pipe_through(:admin_auth)
+      get("/", AdminController, :index)
+      get("/admin-post", AdminPostController, :index)
+      get("/post", PostController, :index)
+      get("/someting-user", AdminUserController, :index)
     end
   end
 
