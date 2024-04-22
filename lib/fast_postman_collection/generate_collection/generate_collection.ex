@@ -1,21 +1,21 @@
-defmodule FastCollection.GenerateCollection do
-  alias FastCollection.GenerateCollection.Structs.Info
-  alias FastCollection.Config
-  alias FastCollection.GenerateCollection.Structs.Auth
-  alias FastCollection.GenerateCollection.Structs.Body
-  alias FastCollection.GenerateCollection.Structs.Url
-  alias FastCollection.GenerateCollection.Structs.Request
-  alias FastCollection.GenerateCollection.Structs.Item
-  alias FastCollection.CollectDataItem
-  alias FastCollection.CollectDataModule
-  alias FastCollection.GenerateCollection.Structs.Folder
-  alias FastCollection.GenerateCollection.Structs.Main
+defmodule FastPostmanCollection.GenerateCollection do
+  alias FastPostmanCollection.GenerateCollection.Structs.Info
+  alias FastPostmanCollection.Config
+  alias FastPostmanCollection.GenerateCollection.Structs.Auth
+  alias FastPostmanCollection.GenerateCollection.Structs.Body
+  alias FastPostmanCollection.GenerateCollection.Structs.Url
+  alias FastPostmanCollection.GenerateCollection.Structs.Request
+  alias FastPostmanCollection.GenerateCollection.Structs.Item
+  alias FastPostmanCollection.CollectDataItem
+  alias FastPostmanCollection.CollectDataModule
+  alias FastPostmanCollection.GenerateCollection.Structs.Folder
+  alias FastPostmanCollection.GenerateCollection.Structs.Main
 
   def generate(collected_data, attrs)
       when (is_list(collected_data) and is_map(attrs)) or is_list(attrs) do
     folders =
-      FastCollection.Helpers.Map.prepare_folder(collected_data)
-      |> FastCollection.Helpers.Map.to_keyword_list()
+      FastPostmanCollection.Helpers.Map.prepare_folder(collected_data)
+      |> FastPostmanCollection.Helpers.Map.to_keyword_list()
       |> recursive_build([])
 
     %Main{
@@ -30,7 +30,7 @@ defmodule FastCollection.GenerateCollection do
   def generate_to_json(collected_data, attrs)
       when (is_list(collected_data) and is_map(attrs)) or is_list(attrs) do
     generate(collected_data, attrs)
-    |> FastCollection.Helpers.Map.map_from_struct_recursive()
+    |> FastPostmanCollection.Helpers.Map.map_from_struct_recursive()
     |> Jason.encode!()
   end
 

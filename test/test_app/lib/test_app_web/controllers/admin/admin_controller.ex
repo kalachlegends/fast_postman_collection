@@ -1,6 +1,6 @@
 defmodule TestAppWeb.AdminController do
   use TestAppWeb, :controller
-  @moduledoc folder_path: "Admin folder/Админка"
+  @moduledoc folder_path: "Admin folder/something"
 
   @moduledoc """
   # Artem

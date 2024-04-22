@@ -1,11 +1,13 @@
-defmodule FastCollection.MixProject do
+defmodule FastPostmanCollection.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :fast_collection,
+      app: :fast_postman_collection,
       version: "0.1.0",
+      docs: docs(),
       elixir: "~> 1.14",
+      description: description(),
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps()
@@ -16,6 +18,22 @@ defmodule FastCollection.MixProject do
   def application do
     [
       extra_applications: [:logger]
+    ]
+  end
+
+  defp description() do
+    "FastPostmanCollection generate by your Phoenix Router generate collection for Postman, ..."
+  end
+
+  defp docs() do
+    [
+      main: "EctoForge",
+      extras: [
+        "README.md"
+      ],
+      pages: [
+        "README.md"
+      ]
     ]
   end
 

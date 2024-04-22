@@ -1,12 +1,12 @@
-defmodule FastCollection.MixTest do
-  alias FastCollection.CollectDataModuleParams
+defmodule FastPostmanCollection.MixTest do
+  alias FastPostmanCollection.CollectDataModuleParams
   use ExUnit.Case, async: true
 
   setup do
-    Application.put_env(:fast_collection, :router, TestAppWeb.Router)
+    Application.put_env(:fast_postman_collection, :router, TestAppWeb.Router)
   end
 
-  test "FastCollection.Mix.Tasks.GetCollection.run()/0" do
-    :ok = FastCollection.Mix.Tasks.GetCollection.run([])
+  test "FastPostmanCollection.Mix.Tasks.GetCollection.run()/0" do
+    :ok = Mix.Tasks.Fs.GetCollection.run([])
   end
 end

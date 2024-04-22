@@ -1,4 +1,4 @@
-defmodule FastCollection.Helpers.Map do
+defmodule FastPostmanCollection.Helpers.Map do
   def to_keyword_list(map) do
     Enum.map(map, fn {k, v} ->
       v =

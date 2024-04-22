@@ -1,7 +1,7 @@
-defmodule FastCollection.Mix.Tasks.GetCollection do
+defmodule Mix.Tasks.Fs.GetCollection do
   @moduledoc "GENERATE POSTMAN COLECTIONS"
   @shortdoc "GENERATE POSTMAN COLECTIONS"
-  alias FastCollection.Config
+  alias FastPostmanCollection.Config
   @requirements ["app.start"]
   use Mix.Task
 
@@ -9,11 +9,11 @@ defmodule FastCollection.Mix.Tasks.GetCollection do
   def run(_args) do
     file_path = Config.get_file_path_to_generate()
 
-    case File.write(Config.get_file_path_to_generate(), FastCollection.generate_json()) do
+    case File.write(Config.get_file_path_to_generate(), FastPostmanCollection.generate_json()) do
       :ok ->
         Mix.shell().info("""
 
-        --->>>> FastCollection GENERATE COLECTIONS
+        --->>>> FastPostmanCollection GENERATE COLECTIONS
         FILE_PATH -> #{file_path}
 
         """)

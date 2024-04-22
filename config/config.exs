@@ -1,6 +1,6 @@
 import Config
 
-config(:fast_collection,
+config(:fast_postman_collection,
   pipe_tokens: [:admin_auth, :user_auth],
   variables: [
     %{

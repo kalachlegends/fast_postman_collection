@@ -1,7 +1,7 @@
-defmodule FastCollection.GenerateCollection.Structs.Auth do
+defmodule FastPostmanCollection.GenerateCollection.Structs.Auth do
   defstruct type: "bearer", bearer: []
-  alias FastCollection.GenerateCollection.Structs.Variable
-  alias FastCollection.CollectDataItem
+  alias FastPostmanCollection.GenerateCollection.Structs.Variable
+  alias FastPostmanCollection.CollectDataItem
 
   def generate(item = %CollectDataItem{}) do
     %__MODULE__{
@@ -11,7 +11,7 @@ defmodule FastCollection.GenerateCollection.Structs.Auth do
   end
 
   def get_config_auth_pipe(item = %CollectDataItem{}) do
-    tokens = FastCollection.Config.get_pipe_tokens()
+    tokens = FastPostmanCollection.Config.get_pipe_tokens()
 
     item.pipe_through
     |> Enum.filter(fn x -> x in tokens end)
@@ -22,7 +22,7 @@ defmodule FastCollection.GenerateCollection.Structs.Auth do
   end
 
   def get_variables_tokens() do
-    tokens = FastCollection.Config.get_pipe_tokens()
+    tokens = FastPostmanCollection.Config.get_pipe_tokens()
 
     Enum.map(tokens, fn x ->
       name_token = Atom.to_string(x) <> "_token"

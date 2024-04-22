@@ -1,6 +1,6 @@
-defmodule FastCollection.GenerateCollection.Structs.Body do
-  alias FastCollection.CollectDataItemParams
-  alias FastCollection.CollectDataItem
+defmodule FastPostmanCollection.GenerateCollection.Structs.Body do
+  alias FastPostmanCollection.CollectDataItemParams
+  alias FastPostmanCollection.CollectDataItem
 
   defstruct mode: "raw",
             raw: "",
@@ -17,7 +17,7 @@ defmodule FastCollection.GenerateCollection.Structs.Body do
 
     %__MODULE__{
       mode: doc_params.mode || "raw",
-      raw: doc_params.body,
+      raw: doc_params.body |> Jason.encode!(pretty: true),
       formdata: doc_params.formdata,
       disabled: is_disabled(doc_params)
     }

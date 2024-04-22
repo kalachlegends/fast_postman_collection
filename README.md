@@ -1,18 +1,20 @@
-# FastCollection
+# FastPostmanCollection
 
 This library exists for generate your collection by Phoenix Router `MyApp.Router`.
-You can write your documentation by doc_params
+You can write your documentation by `@doc`
+
+Example generative your collection:
 ![collection](./images/collection.png)
 
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `fast_collection` to your list of dependencies in `mix.exs`:
+by adding `fast_postman_collection` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:fast_collection, "~> 0.1.0"}
+    {:fast_postman_collection, "~> 0.1.0"}
   ]
 end
 ```
@@ -25,7 +27,7 @@ Configure fast collection
 - file_path_collection -> rewrite where will be your file collection
 
 ```elixir
-config(:fast_collection,
+config(:fast_postman_collection,
   pipe_tokens: [:admin_auth, :user_auth],
   name_collection: "My collection",
   router: MyApp.Router,
@@ -67,11 +69,34 @@ defmodule TestAppWeb.UserController do
 end
 ```
 
+And just use `mix fs.get_collection`
+
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/fast_collection>.
+be found at <https://hexdocs.pm/fast_postman_collection>.
 
-## Examples doc_params
+## How to write documenation
+
+### naming
+
+![naming](./images/naming.png)
+
+```elixir
+@moduledoc """
+# Post controller
+"""
+# Create post go to naming
+ @doc """
+  # Create post
+  this description go to doc !!!!!
+  """
+
+
+```
+
+if you don't pass @doc with # FastPostmanCollection pass module name or function name
+
+### params
 
 This will be put on your url as limit?=10
 
@@ -89,17 +114,36 @@ This will be put on your url as limit?=10
   end
 ```
 
+![params](./images/params.png)
 This will be put on your body and automate mode will be json
 
 ```elixir
-@doc body: %{
-    user: %{
-      admin: ""
-    }
-  }
-  def create_user(conn, params) do
+ @doc """
+  # Create post
+
+  """
+  @doc body: %{
+         post: %{
+           title: ""
+         }
+       }
+  def create_post(conn, params) do
     json(conn, params)
   end
+```
+
+![body](./images/body.png)
+fomdata options
+
+```elixir
+ @doc mode: "formdata"
+@doc formdata: [
+         %{
+           key: "image",
+           value: nil,
+           type: "file"
+         }
+       ]
 ```
 
 ## About authrization
@@ -153,3 +197,13 @@ defmodule MyAppWeb.AdminUserController do
 
 end
 ```
+
+## mix commands
+
+mix fs.get_collection:
+This command generate in your directory file with collection
+
+## Todo
+
+- [ ] filtering in mix fs.get_collection
+- [ ] more testing structs generate

@@ -1,5 +1,5 @@
-defmodule FastCollection.GenerateCollection.Structs.Event do
-  alias FastCollection.CollectDataItemParams
+defmodule FastPostmanCollection.GenerateCollection.Structs.Event do
+  alias FastPostmanCollection.CollectDataItemParams
   defstruct listen: "test", script: %{}, type: "text/javascript"
 
   def generate(collect_item_params = %CollectDataItemParams{}) do
@@ -12,11 +12,11 @@ defmodule FastCollection.GenerateCollection.Structs.Event do
     if is_enable do
       token =
         doc_params.auth_pre_request[:from_resp_token] ||
-          raise FastCollection.Expectation.GiveTokenAuth
+          raise FastPostmanCollection.Expectation.GiveTokenAuth
 
       object_str =
         doc_params.auth_pre_request[:variable_token] ||
-          raise FastCollection.Expectation.GiveTokenAuth
+          raise FastPostmanCollection.Expectation.GiveTokenAuth
 
       [
         %__MODULE__{

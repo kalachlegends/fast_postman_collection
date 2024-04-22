@@ -1,23 +1,23 @@
-defmodule FastCollection.CollectTest do
-  alias FastCollection.CollectDataModuleParams
+defmodule FastPostmanCollection.CollectTest do
+  alias FastPostmanCollection.CollectDataModuleParams
   use ExUnit.Case
 
   setup do
-    Application.put_env(:fast_collection, :router, TestAppWeb.Router)
+    Application.put_env(:fast_postman_collection, :router, TestAppWeb.Router)
   end
 
-  test "Not found phoenix router in FastCollection.Collect.generate_data_by_router/0" do
-    Application.delete_env(:fast_collection, :router)
+  test "Not found phoenix router in FastPostmanCollection.Collect.generate_data_by_router/0" do
+    Application.delete_env(:fast_postman_collection, :router)
 
-    assert %FastCollection.Expectation.PhoenixRouterNotFound{message: message} =
-             catch_error(FastCollection.Collect.generate_data_by_router())
+    assert %FastPostmanCollection.Expectation.PhoenixRouterNotFound{message: message} =
+             catch_error(FastPostmanCollection.Collect.generate_data_by_router())
 
     assert message =~
              "Not found phoenix router in config or function"
   end
 
-  test "collect FastCollection.generate_data_by_router/0" do
-    data = FastCollection.Collect.generate_data_by_router()
+  test "collect FastPostmanCollection.generate_data_by_router/0" do
+    data = FastPostmanCollection.Collect.generate_data_by_router()
 
     assert is_list(data)
     user_controller_item = Enum.find(data, fn x -> x.module == TestAppWeb.UserController end)
@@ -33,8 +33,8 @@ defmodule FastCollection.CollectTest do
     assert documentation =~ "This route index"
   end
 
-  test "FastCollection.get_from_map(map)" do
-    assert %FastCollection.CollectDataItemParams{mode: "raw"} =
-             FastCollection.CollectDataItemParams.get_from_map(%{mode: "raw"})
+  test "FastPostmanCollection.get_from_map(map)" do
+    assert %FastPostmanCollection.CollectDataItemParams{mode: "raw"} =
+             FastPostmanCollection.CollectDataItemParams.get_from_map(%{mode: "raw"})
   end
 end
