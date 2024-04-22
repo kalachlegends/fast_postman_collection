@@ -6,10 +6,13 @@ defmodule TestAppWeb.PostController do
   """
 
   @doc """
-  # post router
+  # post index
   This route index
   """
-  @doc params: %{}
+  @doc params: %{
+         limit: "2000321312",
+         page: "123123"
+       }
   def index(conn, params) do
     json(conn, params)
   end

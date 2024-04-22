@@ -10,7 +10,14 @@ defmodule TestAppWeb.AdminUserController do
   # asdad
   This route index
   """
-  @doc params: %{}
+  @doc mode: "formdata"
+  @doc formdata: [
+         %{
+           key: "image",
+           value: nil,
+           type: "file"
+         }
+       ]
   def index(conn, params) do
     json(conn, params)
   end

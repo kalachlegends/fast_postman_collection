@@ -1,4 +1,4 @@
-defmodule FastPostmanCollection.Helpers.Map do
+defmodule FastCollection.Helpers.Map do
   def to_keyword_list(map) do
     Enum.map(map, fn {k, v} ->
       v =
@@ -10,6 +10,27 @@ defmodule FastPostmanCollection.Helpers.Map do
 
       {"#{k}", v}
     end)
+  end
+
+  def map_from_struct_recursive(map) when is_struct(map) do
+    map =
+      map
+      |> Map.from_struct()
+
+    for {k, v} <- map, into: %{}, do: {k, map_from_struct_recursive(v)}
+  end
+
+  def map_from_struct_recursive(map) when is_list(map) do
+    map
+    |> Enum.map(fn x -> map_from_struct_recursive(x) end)
+  end
+
+  def map_from_struct_recursive(map) when is_map(map) do
+    for {k, v} <- map, into: %{}, do: {k, map_from_struct_recursive(v)}
+  end
+
+  def map_from_struct_recursive(map) do
+    map
   end
 
   def prepare_folder(collected_data) do

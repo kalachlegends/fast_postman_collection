@@ -1,5 +1,5 @@
-defmodule FastPostmanCollection.GenerateCollection.Structs.Query do
-  alias FastPostmanCollection.CollectDataItemParams
+defmodule FastCollection.GenerateCollection.Structs.Query do
+  alias FastCollection.CollectDataItemParams
   defstruct key: "", value: "", disabled: false, description: nil
 
   def generate(doc_params = %CollectDataItemParams{}) do
@@ -16,7 +16,7 @@ defmodule FastPostmanCollection.GenerateCollection.Structs.Query do
         else
           %__MODULE__{
             key: key,
-            value: value
+            value: value |> to_string()
           }
         end
       end)

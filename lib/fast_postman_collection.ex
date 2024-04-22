@@ -1,2 +1,0 @@
-defmodule FastPostmanCollection do
-end

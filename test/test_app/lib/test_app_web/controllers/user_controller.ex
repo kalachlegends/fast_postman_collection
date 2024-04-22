@@ -3,14 +3,15 @@ defmodule TestAppWeb.UserController do
   @moduledoc filter: "test"
 
   @moduledoc """
-  # Artem
+  # User index
   """
 
   @doc """
-  # asdad
+  # User index
   This route index
   """
-  @doc params: %{}
+  @doc params: %{something: "something_in_paramss", page: 3245435123}
+  @doc body: %{something_in_body: "get_someting_in_body"}
   def index(conn, params) do
     json(conn, params)
   end

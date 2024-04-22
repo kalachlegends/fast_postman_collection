@@ -1,14 +1,15 @@
-defmodule FastPostmanCollection.GenerateCollection.Structs.Url do
+defmodule FastCollection.GenerateCollection.Structs.Url do
   defstruct [:raw, host: [], path: [], query: [], variable: []]
-  alias FastPostmanCollection.GenerateCollection.Structs.Query
-  alias FastPostmanCollection.CollectDataItem
+  alias FastCollection.GenerateCollection.Structs.Query
+  alias FastCollection.CollectDataItem
 
   def generate(item = %CollectDataItem{}) do
     doc_params = item.doc_params
 
     %__MODULE__{
-      raw: item.route,
+    raw: ("{{host}}" <> item.route) |> String.replace(":", ""),
       path: item.route |> generate_path(),
+      host: "{{host}}",
       variable: doc_params.url_variable,
       query: Query.generate(doc_params)
     }

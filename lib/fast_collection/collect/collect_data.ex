@@ -1,4 +1,4 @@
-defmodule FastPostmanCollection.CollectDataItemParams do
+defmodule FastCollection.CollectDataItemParams do
   defstruct [
     :mode,
     :raw,
@@ -15,7 +15,7 @@ defmodule FastPostmanCollection.CollectDataItemParams do
   end
 end
 
-defmodule FastPostmanCollection.CollectDataItem do
+defmodule FastCollection.CollectDataItem do
   defstruct [
     :title,
     :documentation,
@@ -24,11 +24,11 @@ defmodule FastPostmanCollection.CollectDataItem do
     :route,
     :method,
     :pipe_through,
-    doc_params: %FastPostmanCollection.CollectDataItemParams{}
+    doc_params: %FastCollection.CollectDataItemParams{}
   ]
 end
 
-defmodule FastPostmanCollection.CollectDataModuleParams do
+defmodule FastCollection.CollectDataModuleParams do
   defstruct [:folder_path, :filter]
 
   def get_from_map(doc_params) when is_map(doc_params) do
@@ -36,13 +36,13 @@ defmodule FastPostmanCollection.CollectDataModuleParams do
   end
 end
 
-defmodule FastPostmanCollection.CollectDataModule do
+defmodule FastCollection.CollectDataModule do
   defstruct [
     :title,
     :documentation,
     :doc_params,
     :functions,
     :module,
-    doc_params: %FastPostmanCollection.CollectDataModuleParams{}
+    doc_params: %FastCollection.CollectDataModuleParams{}
   ]
 end

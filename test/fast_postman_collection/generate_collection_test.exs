@@ -1,17 +1,18 @@
-defmodule FastPostmanCollection.GenerateCollectionTest do
+defmodule FastCollection.GenerateCollectionTest do
   use ExUnit.Case
 
   setup do
-    Application.put_env(:fast_postman_collection, :router, TestAppWeb.Router)
+    Application.put_env(:fast_collection, :router, TestAppWeb.Router)
   end
 
-  test "FastPostmanCollection.Collect.generate_data_by_router()" do
-    data = FastPostmanCollection.Collect.generate_data_by_router()
+  test "FastCollection.Collect.generate_data_by_router()" do
+    data = FastCollection.Collect.generate_data_by_router()
 
-    %FastPostmanCollection.GenerateCollection.Structs.Main{
-      info: %FastPostmanCollection.GenerateCollection.Structs.Info{
+    %FastCollection.GenerateCollection.Structs.Main{
+      info: %FastCollection.GenerateCollection.Structs.Info{
         schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
       }
-    } = FastPostmanCollection.GenerateCollection.generate(data, %{})
+    } = FastCollection.GenerateCollection.generate(data, %{})
   end
+
 end

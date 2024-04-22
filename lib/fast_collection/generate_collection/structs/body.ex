@@ -1,6 +1,6 @@
-defmodule FastPostmanCollection.GenerateCollection.Structs.Body do
-  alias FastPostmanCollection.CollectDataItemParams
-  alias FastPostmanCollection.CollectDataItem
+defmodule FastCollection.GenerateCollection.Structs.Body do
+  alias FastCollection.CollectDataItemParams
+  alias FastCollection.CollectDataItem
 
   defstruct mode: "raw",
             raw: "",

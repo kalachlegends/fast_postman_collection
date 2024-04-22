@@ -20,7 +20,8 @@ erl_crash.dump
 *.ez
 
 # Ignore package tarball (built via "mix hex.build").
-fast_postman_collection-*.tar
+fast_collection-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+Collection.json

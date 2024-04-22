@@ -1,4 +1,4 @@
-defmodule FastPostmanCollection.Helpers.RouterInfo do
+defmodule FastCollection.Helpers.RouterInfo do
   def route_info(router, method, path, host) when is_binary(path) do
     split_path = for segment <- String.split(path, "/"), segment != "", do: segment
     route_info(router, method, split_path, host)
