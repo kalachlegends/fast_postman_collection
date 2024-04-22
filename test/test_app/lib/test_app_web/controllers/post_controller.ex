@@ -5,10 +5,6 @@ defmodule TestAppWeb.PostController do
   # post router
   """
 
-  @doc """
-  # post index
-  This route index
-  """
   @doc params: %{
          limit: "2000321312",
          page: "123123"

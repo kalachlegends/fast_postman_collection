@@ -17,5 +17,7 @@ defmodule FastPostmanCollectionTest do
     assert json =~ "3245435123"
     assert json =~ "2000321312"
     assert json =~ "new_title_popular"
+    assert json =~ "TestAppWeb.UserController"
+    assert json =~ "some_uniq_function"
   end
 end

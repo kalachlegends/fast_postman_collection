@@ -1,7 +1,6 @@
 defmodule FastPostmanCollection do
-  @moduledoc """
-  Read readme
-  """
+  @cwd File.cwd!()
+  @moduledoc File.read!(@cwd <> "/README.md")
   def generate(attrs \\ %{}) do
     FastPostmanCollection.Collect.generate_data_by_router()
     |> FastPostmanCollection.GenerateCollection.generate(attrs)

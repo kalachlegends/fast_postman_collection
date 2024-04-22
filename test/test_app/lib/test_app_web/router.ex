@@ -19,6 +19,7 @@ defmodule TestAppWeb.Router do
     scope "/user" do
       pipe_through(:user_auth)
       get("/", UserController, :index)
+      get("/sasd", UserController, :some_uniq_function)
     end
 
     scope "/admin" do

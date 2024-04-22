@@ -2,7 +2,7 @@
 
 This library exists for generate your collection by Phoenix Router `MyApp.Router`.
 You can write your documentation by `@doc`
-
+This library release this scheme: https://schema.postman.com/
 Example generative your collection:
 ![collection](./images/collection.png)
 
