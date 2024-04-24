@@ -4,7 +4,7 @@ defmodule FastPostmanCollection.MixProject do
   def project do
     [
       app: :fast_postman_collection,
-      version: "0.1.1",
+      version: "0.1.2",
       docs: docs(),
       elixir: "~> 1.13",
       description: description(),

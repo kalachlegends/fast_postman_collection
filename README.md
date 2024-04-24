@@ -14,7 +14,7 @@ by adding `fast_postman_collection` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:fast_postman_collection, "~> 0.1.0"}
+    {:fast_postman_collection, "~> 0.1.2"}
   ]
 end
 ```
