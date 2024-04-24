@@ -4,7 +4,7 @@ defmodule FastPostmanCollection.MixProject do
   def project do
     [
       app: :fast_postman_collection,
-      version: "0.1.0",
+      version: "0.1.1",
       docs: docs(),
       elixir: "~> 1.13",
       description: description(),
@@ -28,7 +28,7 @@ defmodule FastPostmanCollection.MixProject do
       files: ~w(lib .formatter.exs mix.exs README*),
       name: "fast_postman_collection",
       licenses: ["Apache-2.0"],
-      links: %{"GitHub" => "https://github.com/kalachlegends/fast_postman_collection_ex"}
+      links: %{"GitHub" => "https://github.com/kalachlegends/fast_postman_collection"}
     ]
   end
 

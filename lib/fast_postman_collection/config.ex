@@ -1,6 +1,7 @@
 defmodule FastPostmanCollection.Config do
   alias FastPostmanCollection.GenerateCollection.Structs.Variable
-  @cwd File.cwd!()
+  @otp_app Mix.Project.config()[:app]
+  @file_contents Application.app_dir(@otp_app)
   def get_pipe_tokens() do
     case Application.fetch_env(:fast_postman_collection, :pipe_tokens) do
       {:ok, value} when is_list(value) -> value
@@ -11,7 +12,7 @@ defmodule FastPostmanCollection.Config do
   def get_file_path_to_generate do
     case Application.fetch_env(:fast_postman_collection, :file_path_collection) do
       {:ok, value} when is_binary(value) -> value <> get_name_collection() <> ".json"
-      :error -> "#{@cwd}/#{get_name_collection() <> ".json"}"
+      :error -> "./#{get_name_collection() <> ".json"}"
     end
   end
 

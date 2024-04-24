@@ -20,13 +20,14 @@ defmodule TestAppWeb.Router do
       pipe_through(:user_auth)
       get("/", UserController, :index)
       get("/sasd", UserController, :some_uniq_function)
+      post("/post-admin-test", PostController, :index)
     end
 
     scope "/admin" do
       pipe_through(:admin_auth)
       get("/", AdminController, :index)
-      get("/admin-post", AdminPostController, :index)
-      get("/post", PostController, :index)
+      get("/admin-post-index", AdminPostController, :index)
+      get("/admin-post_create", AdminPostController, :create_post)
       get("/someting-user", AdminUserController, :index)
     end
   end

@@ -16,7 +16,7 @@ defmodule FastPostmanCollection.GenerateCollection.Structs.Url do
   end
 
   defp generate_path(item) do
-    Regex.scan(~r/(\/|:)\w+/, item)
+    Regex.scan(~r/(\/|:)(\w+|-)+/, item)
     |> Enum.map(fn x -> hd(x) |> String.replace(~r/(\/)/, "") end)
   end
 end

@@ -1,4 +1,5 @@
 defmodule FastPostmanCollection.GenerateCollection do
+  alias FastPostmanCollection.GenerateCollection.Structs.Event
   alias FastPostmanCollection.GenerateCollection.Structs.Info
   alias FastPostmanCollection.Config
   alias FastPostmanCollection.GenerateCollection.Structs.Auth
@@ -66,7 +67,8 @@ defmodule FastPostmanCollection.GenerateCollection do
         body: Body.generate(item),
         url: Url.generate(item),
         auth: Auth.generate(item)
-      }
+      },
+      event: Event.generate(item.doc_params)
     }
   end
 end

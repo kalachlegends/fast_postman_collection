@@ -8,23 +8,34 @@ defmodule FastPostmanCollection.Collect do
       raise FastPostmanCollection.Expectation.PhoenixRouterNotFound
     end
 
-    collect_documentation(apply(router, :__routes__, []), router)
+    collect_documentation(
+      apply(router, :__routes__, []),
+      router
+    )
   end
 
   def collect_documentation(list, router) when is_list(list) do
     list
     |> Enum.sort()
     |> Enum.uniq()
-    |> Enum.map(&handle_generate_data(&1, router))
+    |> Enum.uniq_by(fn x -> x.plug end)
+    |> Enum.map(&handle_generate_data(&1, router, list))
   end
 
-  defp handle_generate_data(%{plug: plug, verb: verb, path: path} = item, router) do
+  defp handle_generate_data(%{plug: plug}, router, all_routes) do
     {_, _, _, _, doc, doc_params, functions} = Code.fetch_docs(plug)
+    functions_names = Enum.map(all_routes, & &1.plug_opts)
 
     functions_list =
       functions
+      |> Enum.filter(fn {{_, function_name, _}, _, _, _, _} ->
+        function_name in functions_names
+      end)
       |> Enum.filter(fn {{_, _, _}, _, _, type, _} -> type != :hidden end)
       |> Enum.map(fn {{_, function_name, _}, _, _, doc, doc_params} ->
+        %{verb: verb, path: path} =
+          Enum.find(all_routes, fn x -> x.plug_opts == function_name and x.plug == plug end)
+
         %CollectDataItem{
           name: function_name,
           method: verb,

@@ -28,6 +28,11 @@ defmodule TestAppWeb.AdminPostController do
            new_title_popular: ""
          }
        }
+  @doc auth_pre_request: %{
+         is_enabled: true,
+         from_resp_token: "token",
+         variable_token: "admin_variablessss"
+       }
   def create_post(conn, params) do
     json(conn, params)
   end
