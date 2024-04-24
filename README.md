@@ -166,7 +166,6 @@ config.exs
 ```elixir
 config(:fast_postman_collection,
   pipe_tokens: [:admin_auth, :user_auth]
-end
 ```
 
 will be there in bearer in token
