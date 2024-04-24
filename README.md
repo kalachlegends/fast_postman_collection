@@ -4,7 +4,7 @@ This library exists for generate your collection by Phoenix Router `MyApp.Router
 You can write your documentation by `@doc`
 This library release this scheme: https://schema.postman.com/
 Example generative your collection:
-![collection](images/collection.png)
+![collection](assets/collection.png)
 
 ## Installation
 
@@ -79,7 +79,7 @@ be found at <https://hexdocs.pm/fast_postman_collection>.
 
 ### naming
 
-![naming](images/naming.png)
+![naming](assets/naming.png)
 
 ```elixir
 @moduledoc """
@@ -114,7 +114,7 @@ This will be put on your url as limit?=10
   end
 ```
 
-![params](images/params.png)
+![params](assets/params.png)
 This will be put on your body and automate mode will be json
 
 ```elixir
@@ -132,7 +132,7 @@ This will be put on your body and automate mode will be json
   end
 ```
 
-![body](images/body.png)
+![body](assets/body.png)
 fomdata options
 
 ```elixir
@@ -171,7 +171,7 @@ end
 ```
 
 will be there in bearer in token
-![token](images/token.png)
+![token](assets/token.png)
 
 And use for put your token
 

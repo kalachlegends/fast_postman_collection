@@ -28,7 +28,8 @@ defmodule FastPostmanCollection.MixProject do
       files: ~w(lib .formatter.exs mix.exs README*),
       name: "fast_postman_collection",
       licenses: ["Apache-2.0"],
-      links: %{"GitHub" => "https://github.com/kalachlegends/fast_postman_collection"}
+      assets: "assets",
+      links: %{"GitHub" => "https://github.com/kalachlegends/fast_postman_collection_ex"}
     ]
   end
 
