@@ -10,12 +10,12 @@ defmodule FastPostmanCollection.GenerateCollection.Structs.Event do
     is_enable = doc_params.auth_pre_request[:is_enabled] || false
 
     if is_enable do
-      token =
-        doc_params.auth_pre_request[:from_resp_token] ||
+      variable_token =
+        doc_params.auth_pre_request[:variable_token] ||
           raise FastPostmanCollection.Expectation.GiveTokenAuth
 
-      object_str =
-        doc_params.auth_pre_request[:variable_token] ||
+      from_resp_token =
+        doc_params.auth_pre_request[:from_resp_token] ||
           raise FastPostmanCollection.Expectation.GiveTokenAuth
 
       [
@@ -25,8 +25,8 @@ defmodule FastPostmanCollection.GenerateCollection.Structs.Event do
             exec: [
               "pm.test(\"Get token\", function () {\n",
               "    var jsonData = pm.response.json();",
-              "    let bearerToken = jsonData.#{object_str};",
-              "    pm.collectionVariables.set(\"#{token}\", bearerToken);",
+              "    let bearerToken = jsonData.#{from_resp_token};",
+              "    pm.collectionVariables.set(\"#{variable_token}\", bearerToken);",
               "});"
             ],
             type: "text/javascript"
