@@ -6,8 +6,9 @@ defmodule FastPostmanCollection.MixProject do
       app: :fast_postman_collection,
       version: "0.1.0",
       docs: docs(),
-      elixir: "~> 1.14",
+      elixir: "~> 1.13",
       description: description(),
+      package: package(),
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps()
@@ -21,13 +22,23 @@ defmodule FastPostmanCollection.MixProject do
     ]
   end
 
+  defp package() do
+    [
+      # This option is only needed when you don't want to use the OTP application name
+      files: ~w(lib .formatter.exs mix.exs README*),
+      name: "fast_postman_collection",
+      licenses: ["Apache-2.0"],
+      links: %{"GitHub" => "https://github.com/kalachlegends/fast_postman_collection"}
+    ]
+  end
+
   defp description() do
     "FastPostmanCollection generate by your Phoenix Router generate collection for Postman, ..."
   end
 
   defp docs() do
     [
-      main: "EctoForge",
+      main: "FastPostmanCollection",
       extras: [
         "README.md"
       ],
@@ -58,7 +69,8 @@ defmodule FastPostmanCollection.MixProject do
       {:gettext, "~> 0.20", only: :test},
       {:dns_cluster, "~> 0.1.1", only: :test},
       {:bandit, "~> 1.2", only: :test},
-      {:hackney, "~> 1.9", only: :test}
+      {:hackney, "~> 1.9", only: :test},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
     ]
