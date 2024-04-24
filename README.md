@@ -164,9 +164,8 @@ end
 config.exs
 
 ```elixir
- scope "/user" do
-      pipe_through(:admin_auth)
-      get("/", UserController, :index)
+config(:fast_postman_collection,
+  pipe_tokens: [:admin_auth, :user_auth]
 end
 ```
 
