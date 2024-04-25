@@ -4,7 +4,7 @@ defmodule FastPostmanCollection.MixProject do
   def project do
     [
       app: :fast_postman_collection,
-      version: "0.1.3",
+      version: "0.1.4",
       docs: docs(),
       elixir: "~> 1.13",
       description: description(),
@@ -33,7 +33,7 @@ defmodule FastPostmanCollection.MixProject do
   end
 
   defp description() do
-    "FastPostmanCollection generate by your Phoenix Router generate collection for Postman, ..."
+    "FastPostmanCollection generate by your Phoenix Router collection for Postman, ..."
   end
 
   defp docs() do

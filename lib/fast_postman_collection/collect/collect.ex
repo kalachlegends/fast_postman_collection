@@ -32,6 +32,10 @@ defmodule FastPostmanCollection.Collect do
         function_name in functions_names
       end)
       |> Enum.filter(fn {{_, _, _}, _, _, type, _} -> type != :hidden end)
+      |> Enum.filter(fn {{_, function_name, _}, _, _, _, _} ->
+        Enum.find(all_routes, fn x -> x.plug_opts == function_name and x.plug == plug end)
+        |> is_map()
+      end)
       |> Enum.map(fn {{_, function_name, _}, _, _, doc, doc_params} ->
         %{verb: verb, path: path} =
           Enum.find(all_routes, fn x -> x.plug_opts == function_name and x.plug == plug end)
