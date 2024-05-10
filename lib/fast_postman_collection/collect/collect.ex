@@ -15,6 +15,7 @@ defmodule FastPostmanCollection.Collect do
     )
   end
 
+  @spec collect_documentation(maybe_improper_list(), any()) :: list()
   def collect_documentation(list, router) when is_list(list) do
     list
     |> Enum.sort()
