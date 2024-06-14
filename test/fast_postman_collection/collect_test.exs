@@ -17,7 +17,9 @@ defmodule FastPostmanCollection.CollectTest do
   end
 
   test "collect FastPostmanCollection.generate_data_by_router/0" do
-    data = FastPostmanCollection.Collect.generate_data_by_router()
+    data =
+      FastPostmanCollection.Collect.generate_data_by_router()
+      |> IO.inspect(label: "test/fast_postman_collection/collect_test.exs:20")
 
     assert is_list(data)
     user_controller_item = Enum.find(data, fn x -> x.module == TestAppWeb.UserController end)

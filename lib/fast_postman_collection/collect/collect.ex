@@ -56,6 +56,7 @@ defmodule FastPostmanCollection.Collect do
                   path,
                   "h"
                 )[:pipe_through],
+              other_variables: doc_params,
               title: documentation_handler(doc) |> title(),
               documentation: documentation_handler(doc) |> documentation_body(),
               doc_params: FastPostmanCollection.CollectDataItemParams.get_from_map(doc_params)
@@ -64,6 +65,7 @@ defmodule FastPostmanCollection.Collect do
 
         %CollectDataModule{
           module: plug,
+          other_variables: doc_params,
           doc_params: FastPostmanCollection.CollectDataModuleParams.get_from_map(doc_params),
           title: documentation_handler(doc) |> title(),
           documentation: documentation_handler(doc) |> documentation_body(),

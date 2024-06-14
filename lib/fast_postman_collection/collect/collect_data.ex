@@ -23,6 +23,7 @@ defmodule FastPostmanCollection.CollectDataItem do
     :filter,
     :route,
     :method,
+    :other_variables,
     :pipe_through,
     doc_params: %FastPostmanCollection.CollectDataItemParams{}
   ]
@@ -43,6 +44,7 @@ defmodule FastPostmanCollection.CollectDataModule do
     :doc_params,
     :functions,
     :module,
+    :other_variables,
     doc_params: %FastPostmanCollection.CollectDataModuleParams{}
   ]
 end
