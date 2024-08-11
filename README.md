@@ -69,11 +69,13 @@ defmodule TestAppWeb.UserController do
 end
 ```
 
-And just use `mix fs.get_collection`
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at <https://hexdocs.pm/fast_postman_collection>.
+## Mix command for generate 
+`mix fs.get_collection`
+
 
 ## How to write documenation
 
