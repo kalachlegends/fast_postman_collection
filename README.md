@@ -14,7 +14,7 @@ by adding `fast_postman_collection` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:fast_postman_collection, "~> 0.1.5"}
+    {:fast_postman_collection, "~> 0.1.7"}
   ]
 end
 ```
@@ -76,6 +76,9 @@ be found at <https://hexdocs.pm/fast_postman_collection>.
 ## Mix command for generate 
 `mix fs.get_collection`
 
+## Changelog
+- 0.1.7: Added support for including endpoint descriptions in Postman collections 
+- 0.1.6: Previous version
 
 ## How to write documenation
 
