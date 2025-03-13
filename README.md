@@ -87,16 +87,14 @@ be found at <https://hexdocs.pm/fast_postman_collection>.
 ![naming](assets/naming.png)
 
 ```elixir
-@moduledoc """
-# Post controller
-"""
-# Create post go to naming
- @doc """
+  @moduledoc """
+  # Post controller
+  """
+  # Create post go to naming
+  @doc """
   # Create post
   this description go to doc !!!!!
   """
-
-
 ```
 
 if you don't pass @doc with # FastPostmanCollection pass module name or function name
@@ -125,7 +123,6 @@ This will be put on your body and automate mode will be json
 ```elixir
  @doc """
   # Create post
-
   """
   @doc body: %{
          post: %{
@@ -160,10 +157,10 @@ All tokens puts and scans from your pipelines
 router.ex
 
 ```elixir
- scope "/user" do
-      pipe_through(:admin_auth)
-      get("/", UserController, :index)
-end
+  scope "/user" do
+    pipe_through(:admin_auth)
+    get("/", UserController, :index)
+  end
 ```
 
 config.exs
