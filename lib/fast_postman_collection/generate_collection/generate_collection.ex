@@ -66,7 +66,8 @@ defmodule FastPostmanCollection.GenerateCollection do
         method: item.method,
         body: Body.generate(item),
         url: Url.generate(item),
-        auth: Auth.generate(item)
+        auth: Auth.generate(item),
+        description: item.documentation
       },
       event: Event.generate(item.doc_params)
     }

@@ -93,10 +93,29 @@ defmodule FastPostmanCollection.Collect do
 
   defp documentation_body(doc) do
     case Regex.run(~r/^# (.+?)\n/, doc) do
-      [_, title] -> String.replace(doc, "# #{title}", "")
-      _any -> String.split(doc, "\n")
+      [_, title] -> 
+        # Remove the title line and trim leading whitespace
+        String.replace(doc, "# #{title}", "")
+        |> String.trim_leading()
+        |> extract_first_paragraph()
+      _any -> 
+        case String.split(doc, "\n") do
+          lines when is_list(lines) -> 
+            Enum.join(lines, "\n")
+            |> extract_first_paragraph()
+          other -> other
+        end
     end
   end
+
+  # Extract the first paragraph to use as description
+  defp extract_first_paragraph(text) when is_binary(text) do
+    case String.split(text, ~r/\n\s*\n/, parts: 2) do
+      [first_paragraph | _] -> String.trim(first_paragraph)
+      _ -> text
+    end
+  end
+  defp extract_first_paragraph(other), do: other
 
   defp documentation_handler(%{"en" => doc}), do: doc
   defp documentation_handler(:none), do: nil
