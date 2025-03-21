@@ -17,7 +17,7 @@ defmodule FastPostmanCollection.Helpers.Map do
       map
       |> Map.from_struct()
 
-    for {k, v} <- map, into: %{}, do: {k, map_from_struct_recursive(v)}
+    for {k, v} <- map, v != nil, into: %{}, do: {k, map_from_struct_recursive(v)}
   end
 
   def map_from_struct_recursive(map) when is_list(map) do
@@ -26,7 +26,7 @@ defmodule FastPostmanCollection.Helpers.Map do
   end
 
   def map_from_struct_recursive(map) when is_map(map) do
-    for {k, v} <- map, into: %{}, do: {k, map_from_struct_recursive(v)}
+    for {k, v} <- map, v != nil, into: %{}, do: {k, map_from_struct_recursive(v)}
   end
 
   def map_from_struct_recursive(map) do
