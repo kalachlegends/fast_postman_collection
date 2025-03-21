@@ -32,4 +32,12 @@ defmodule FastPostmanCollection.GenerateCollection.Structs.Body do
       true -> is_disabled
     end
   end
+  
+  # Check if the item should have a body based on its documentation
+  def has_body?(item = %CollectDataItem{}) do
+    doc_params = item.doc_params
+    
+    # Check if body is explicitly defined in the documentation
+    doc_params.body != nil && doc_params.body != ""
+  end
 end

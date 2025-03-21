@@ -65,7 +65,7 @@ defmodule FastPostmanCollection.GenerateCollection do
       name: "#{item.title || item.name}",
       request: %Request{
         method: item.method,
-        body: Body.generate(item),
+        body: if(Body.has_body?(item), do: Body.generate(item), else: nil),
         url: Url.generate(item),
         auth: Auth.generate(item),
         description: item.documentation
