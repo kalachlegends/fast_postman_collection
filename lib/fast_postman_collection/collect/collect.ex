@@ -108,12 +108,9 @@ defmodule FastPostmanCollection.Collect do
     end
   end
 
-  # Extract the first paragraph to use as description
+  # Use the full documentation instead of just the first paragraph
   defp extract_first_paragraph(text) when is_binary(text) do
-    case String.split(text, ~r/\n\s*\n/, parts: 2) do
-      [first_paragraph | _] -> String.trim(first_paragraph)
-      _ -> text
-    end
+    String.trim(text)
   end
   defp extract_first_paragraph(other), do: other
 

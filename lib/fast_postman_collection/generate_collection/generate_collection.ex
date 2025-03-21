@@ -55,7 +55,8 @@ defmodule FastPostmanCollection.GenerateCollection do
   def parse_collect_data_module(item = %CollectDataModule{}) do
     %Folder{
       item: Enum.map(item.functions, &parse_collect_data_item/1),
-      name: "#{item.title || item.module}"
+      name: "#{item.title || item.module}",
+      description: item.documentation
     }
   end
 
