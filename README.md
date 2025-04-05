@@ -1,10 +1,30 @@
 # FastPostmanCollection
 
-This library exists for generate your collection by Phoenix Router `MyApp.Router`.
-You can write your documentation by `@doc`
-This library release this scheme: https://schema.postman.com/
-Example generative your collection:
+This library helps you generate a Postman collection from your Phoenix router (`MyApp.Router`).
+You can document your endpoints using `@doc` annotations for **params, body, form data**, and more.
+Pipelines (plugs) can also be auto-scanned and added to the collection automatically.
+
+Example generated collection:
+
 ![collection](assets/collection.png)
+
+This library uses the official Postman schema: https://schema.postman.com/
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Controller Example](#configure-your-controller)
+- [Description and Titles](#description-and-title-of-collection)
+- [Query Parameters](#params-in-your-collection)
+- [Body Parameters](#body-parameters)
+- [Form Data](#formdata-options)
+- [Authentication Tokens](#how-to-auto-scan-and-autoput-your-pipes-token)
+- [Organizing Folders](#organizing-folders-in-the-collection)
+- [Mix Commands](#mix-commands)
+- [Todo](#todo)
+- [Feedback](#you-like-the-idea)
+- [Changelog](#changelog)
 
 ## Installation
 
@@ -14,17 +34,17 @@ by adding `fast_postman_collection` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:fast_postman_collection, "~> 0.1.7"}
+    {:fast_postman_collection, "~> 0.1.8"}
   ]
 end
 ```
 
-Configure fast collection
+Configure fast_postman_collection
 
-- pipe_tokens -> put in your auth bearer
-- router -> your router
-- variables -> variables collection
-- file_path_collection -> rewrite where will be your file collection
+- router -> your Phoenix router module *(required)*
+- pipe_tokens -> put in your auth bearer (`pipe_tokens`: a list of pipeline plugs (like `:admin_auth`) that should automatically add a Bearer token in the Postman request headers.)
+- variables -> variables to include in the Postman collection *(optional)*
+- file_path_collection -> path to save the generated collection *(optional)*
 
 ```elixir
 config(:fast_postman_collection,
@@ -40,127 +60,102 @@ config(:fast_postman_collection,
 )
 ```
 
-configure your controller
-
-```elixir
-defmodule TestAppWeb.UserController do
-  use TestAppWeb, :controller
-  @moduledoc filter: "test"
-  # Artem will be name in collection
-  @moduledoc """
-  # Artem
-  """
-  # Index route will be name in collection
-  @doc """
-  # Index route
-  This route will be in collection
-  """
-  @doc params: %{
-    limit: 0,
-    page: %{
-      key: "page",
-      value: 1,
-      description: "artem"
-    },
-  }
-  def index(conn, params) do
-    json(conn, params)
-  end
-end
-```
+When you add router to your configuration, it will be able to generate a collection _using the command_ - `mix fs.get_collection`
 
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/fast_postman_collection>.
-## Mix command for generate 
-`mix fs.get_collection`
-
-## Changelog
-- 0.1.7: Added support for including endpoint descriptions in Postman collections 
-- 0.1.6: Previous version
-
-## How to write documenation
-
-### naming
+## Description and Title of collection
 
 ![naming](assets/naming.png)
 
 ```elixir
-  @moduledoc """
-  # Post controller
-  """
-  # Create post go to naming
-  @doc """
-  # Create post
-  this description go to doc !!!!!
-  """
+@moduledoc """
+# Post Controller
+This will be used as the folder name in the generated Postman collection.
+"""
+
+@doc """
+# Create Post
+This will be used as the request title in the Postman collection.
+
+Use this endpoint to create a new post.
+All content inside this doc block will be added to the request description in the collection.
+"""
 ```
 
-if you don't pass @doc with # FastPostmanCollection pass module name or function name
+If you don't provide a `@doc` annotation, the default name will be taken from the module or function name.
 
-### params
+## Params in Your Collection
 
-This will be put on your url as limit?=10
+These parameters will be included in the URL as query strings.
+For example, the generated URL might look like: ?limit=0&page=1
 
 ```elixir
 @doc params: %{
-    limit: 0,
-    page: %{
-      key: "page",
-      value: 1,
-      description: "artem"
-    },
+  limit: 0,
+  page: %{
+    key: "page",
+    value: 1,
+    description: "Page number for pagination"
   }
-  def index(conn, params) do
-    json(conn, params)
-  end
+}
+def index(conn, params) do
+  json(conn, params)
+end
 ```
 
 ![params](assets/params.png)
-This will be put on your body and automate mode will be json
+
+## Body Parameters
+
+These parameters will be included in the request body.
+By default, the body is sent in JSON format.
+
+This is how you define a request body in JSON format:
 
 ```elixir
- @doc """
-  # Create post
-  """
-  @doc body: %{
-         post: %{
-           title: ""
-         }
-       }
-  def create_post(conn, params) do
-    json(conn, params)
-  end
+@doc """
+# Create post
+"""
+@doc body: %{
+        post: %{
+          title: ""
+        }
+      }
+def create_post(conn, params) do
+  json(conn, params)
+end
 ```
 
 ![body](assets/body.png)
-fomdata options
+
+## Formdata options
+
+To send form data (e.g. file uploads):
 
 ```elixir
- @doc mode: "formdata"
+@doc mode: "formdata"
 @doc formdata: [
-         %{
-           key: "image",
-           value: nil,
-           type: "file"
-         }
-       ]
+        %{
+          key: "image",
+          value: nil,
+          type: "file"
+        }
+      ]
 ```
 
-## About authrization
+## How to Auto-Scan and Apply Authentication Tokens
 
-All tokens puts and scans from your pipelines
+How to auto scan and autoput your pipe's token
 
-### example
+### Example
 
 router.ex
 
 ```elixir
-  scope "/user" do
-    pipe_through(:admin_auth)
-    get("/", UserController, :index)
-  end
+scope "/user" do
+  pipe_through(:admin_auth)
+  get("/", UserController, :index)
+end
 ```
 
 config.exs
@@ -170,21 +165,26 @@ config(:fast_postman_collection,
   pipe_tokens: [:admin_auth, :user_auth]
 ```
 
-will be there in bearer in token
+All tokens puts and scans from your pipelines
+
 ![token](assets/token.png)
 
-And use for put your token
+### Extract Token from Response Automatically
+
+You can also automatically insert tokens into variables from a response:
 
 ```elixir
  @doc auth_pre_request: %{is_enabled: true, from_resp_token: "token", variable_token: "admin_variable"}
 ```
 
-## about folder
+## Organizing Folders in the Collection
 
-You can use `@moduledoc folder_path: "Admin"`
-and this put your module function to this folder
+You can use @moduledoc folder_path: "Admin" to place your module's requests inside a specific folder in the Postman collection.
 
-### Example
+The final folder structure will look like:
+Admin / UserController
+
+#### Example
 
 ```elixir
 defmodule MyAppWeb.AdminUserController do
@@ -198,12 +198,20 @@ defmodule MyAppWeb.AdminUserController do
 end
 ```
 
-## mix commands
+## Mix commands
 
-mix fs.get_collection:
-This command generate in your directory file with collection
+- mix fs.get_collection: _This command generate in your directory file with collection_
 
 ## Todo
 
 - [ ] filtering in mix fs.get_collection
-- [ ] more testing structs generate
+
+## You like the idea?
+
+If you like the idea of the library, write in this "issue" on github and I will add this functionality as soon as I have free time.
+
+## Changelog
+
+- 0.1.8: Exclude null entries in Request Header, fix for full paragraph and update documentation for library
+- 0.1.7: Added support for including endpoint descriptions in Postman collections
+- 0.1.6: Previous version

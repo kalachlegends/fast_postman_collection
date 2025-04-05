@@ -24,5 +24,7 @@ defmodule FastPostmanCollectionTest do
     assert json =~ "admin-post_create"
     assert json =~ "someting-user"
     assert json =~ "admin_variablessss"
+    assert json =~ "Title test"
+    assert json =~ "ADMIN USER"
   end
 end

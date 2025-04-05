@@ -7,8 +7,8 @@ defmodule TestAppWeb.AdminUserController do
   """
 
   @doc """
-  # asdad
-  This route index
+  # Title test
+  ADMIN USER
   """
   @doc mode: "formdata"
   @doc formdata: [
