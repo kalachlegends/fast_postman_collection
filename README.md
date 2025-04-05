@@ -13,8 +13,6 @@ This library uses the official Postman schema: https://schema.postman.com/
 ## Table of Contents
 
 - [Installation](#installation)
-- [Configuration](#configuration)
-- [Controller Example](#configure-your-controller)
 - [Description and Titles](#description-and-title-of-collection)
 - [Query Parameters](#params-in-your-collection)
 - [Body Parameters](#body-parameters)
