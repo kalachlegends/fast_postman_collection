@@ -55,7 +55,8 @@ defmodule FastPostmanCollection.GenerateCollection do
   def parse_collect_data_module(item = %CollectDataModule{}) do
     %Folder{
       item: Enum.map(item.functions, &parse_collect_data_item/1),
-      name: "#{item.title || item.module}"
+      name: "#{item.title || item.module}",
+      description: item.documentation
     }
   end
 
@@ -64,7 +65,7 @@ defmodule FastPostmanCollection.GenerateCollection do
       name: "#{item.title || item.name}",
       request: %Request{
         method: item.method,
-        body: Body.generate(item),
+        body: if(Body.has_body?(item), do: Body.generate(item), else: nil),
         url: Url.generate(item),
         auth: Auth.generate(item),
         description: item.documentation
